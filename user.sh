@@ -4,10 +4,10 @@ current_dir="$(cd "$(dirname "$0")" && pwd)"
 . $current_dir/env.sh
 
 # install & update packages
-apt update
-apt upgrade
-apt autoremove
-apt autoclean
+sudo apt update
+sudo apt upgrade
+sudo apt autoremove
+sudo apt autoclean
 
 for package in $packages; do
     if ! dpkg -l | grep -q "$package"; then
@@ -48,10 +48,10 @@ fd_exists ~/.config/shell/zsh-autosuggestions || git clone https://github.com/zs
 
 
 # Copy ssh keys
-mkdir -p /home/$user_name/.ssh
-cp -R /root/.ssh /home/$user_name/
-chown $user_name:$user_name -R /home/$user_name/.ssh
-chmod 600 /home/$user_name/.ssh
+mkdir -p /home/$usr/.ssh
+sudo cp -R /root/.ssh /home/$usr/
+sudo chown $usr:$usr -R /home/$usr/.ssh
+chmod 600 /home/$usr/.ssh
 
 
 # Harden SSHD config
@@ -70,13 +70,13 @@ set_config "ClientAliveCountMax" "2"
 set_config "PermitRootLogin" "no"
 
 
-systemctl restart ssh.service
+sudo systemctl restart ssh.service
 
 # Install docker
 if ! dpkg -l | grep -q "docker"; then
     echo "Installing docker..."
     curl -fsSL https://get.docker.com | sh
-    usermod -aG docker $user_name
+    usermod -aG docker $usr
 else
     echo "Docker already installed"
 fi

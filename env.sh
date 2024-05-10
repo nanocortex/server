@@ -10,10 +10,10 @@ set_config() {
   param=$1
   value=$2
   # Use sed to change the setting
-  sed -i "s/^\($param\s*\).*\$/\1$value/" "$sshd_config"
+  sudo sed -i "s/^\($param\s*\).*\$/\1$value/" "$sshd_config"
   # If sed made no change (parameter was not found), append parameter
   if ! grep -q "^$param $value$" "$sshd_config"; then
-    echo "$param $value" >> "$sshd_config"
+    sudo echo "$param $value" >> "$sshd_config"
   fi
 }
 
