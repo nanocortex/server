@@ -19,6 +19,7 @@ for package in $pkgs; do
 done
 
 # install gcm
+pass init master
 if [ ! -f /usr/local/bin/git-credential-manager ]; then
 	git config --global credential.credentialStore gpg
 	curl -L https://aka.ms/gcm/linux-install-source.sh | bash
