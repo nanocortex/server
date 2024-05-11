@@ -60,10 +60,11 @@ fd_exists ~/.local/share/shell/p10k || git clone --depth=1 https://github.com/ro
 #
 
 # Copy ssh keys
-mkdir -p /home/$usr/.ssh
+#mkdir -p /home/$usr/.ssh
 sudo cp -R /root/.ssh /home/$usr/
-sudo chown $usr:$usr -R /home/$usr/.ssh
-chmod 600 /home/$usr/.ssh
+sudo chown $usr:users -R /home/$usr/.ssh
+chmod 700 /home/$usr/.ssh
+chmod 600 /home/$usr/.ssh/authorized_keys
 
 # Harden SSHD config
 set_config "PermitEmptyPasswords" "no"

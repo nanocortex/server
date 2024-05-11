@@ -25,7 +25,7 @@ fi
 echo "Running user-specific tasks as $usr..."
 
 # Run the user tasks script as the new user
-chown $usr:$usr $current_dir/user.sh $current_dir/env.sh
+chown $usr:users $current_dir/user.sh $current_dir/env.sh
 su - $usr -c "sudo -u $usr sh '$configure_user_script'"
 if [ $? -ne 0 ]; then
 	echo "Tasks execution as $usr failed."
