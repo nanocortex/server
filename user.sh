@@ -4,10 +4,9 @@ current_dir="$(cd "$(dirname "$0")" && pwd)"
 . $current_dir/env.sh
 
 # install & update packages
-sudo apt update
-sudo apt upgrade
-sudo apt autoremove
-sudo apt autoclean
+sudo apt update -y
+sudo apt upgrade -y
+sudo apt autoremove -y
 
 for package in $pkgs; do
 	if ! dpkg -l | grep -q "$package"; then
@@ -49,6 +48,8 @@ fd_exists ~/.fzf || $(git clone --depth 1 https://github.com/junegunn/fzf.git ~/
 mkdir -p ~/.config/shell
 fd_exists ~/.local/share/shell/zsh-syntax-highlighting || git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.local/share/shell/zsh-syntax-highlighting
 fd_exists ~/.local/share/shell/zsh-autosuggestions || git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.local/share/shell/zsh-autosuggestions
+fd_exists ~/.local/share/shell/fzf-tab || git clone https://github.com/Aloxaf/fzf-tab ~/.local/share/shell/fzf-tab
+
 fd_exists ~/.local/share/shell/p10k || git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.local/share/shell/p10k
 # fd_exists ~/.local/share/shell/fzf || git clone --depth=1 https://github.com/unixorn/fzf-zsh-plugin.git ~/.local/share/shell/fzf
 
