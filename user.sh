@@ -8,6 +8,8 @@ sudo apt update -y
 sudo apt upgrade -y
 sudo apt autoremove -y
 
+sudo timedatectl set-timezone Europe/Warsaw
+
 for package in $pkgs; do
 	if ! dpkg -l | grep -q "$package"; then
 		echo "Installing package $package..."
