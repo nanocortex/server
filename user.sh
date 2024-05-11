@@ -19,9 +19,13 @@ for package in $pkgs; do
 done
 
 # install gcm
-git config --global credential.credentialStore gpg
-# curl -L https://aka.ms/gcm/linux-install-source.sh | sh
-# git-credential-manager configure
+if [ ! -f /usr/local/bin/git-credential-manager ]; then
+	git config --global credential.credentialStore gpg
+	curl -L https://aka.ms/gcm/linux-install-source.sh | bash
+	git-credential-manager configure
+else
+	echo "GCM already installed"
+fi
 
 # install lazygit
 if [ ! -f /usr/local/bin/lazygit ]; then
