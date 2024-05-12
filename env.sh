@@ -2,7 +2,7 @@
 
 current_dir="$(cd "$(dirname "$0")" && pwd)"
 usr="user"
-pkgs="git vim tmux htop curl wget neofetch nnn ncdu zsh zoxide neovim stow p7zip-full ripgrep fd-find"
+pkgs="git vim tmux htop curl wget neofetch nnn ncdu zsh zoxide neovim stow p7zip-full ripgrep fd-find git-crypt"
 sshd_config="/etc/ssh/sshd_config"
 configure_user_script="$current_dir/user.sh"
 

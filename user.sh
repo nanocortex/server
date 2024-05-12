@@ -27,13 +27,6 @@ if [ ! -f /snap/bin/doctl ]; then
 	doctl registry login --never-expire
 fi
 
-# install sops
-if [ ! -f /usr/local/bin/sops ]; then
-	curl -LO https://github.com/getsops/sops/releases/download/v3.8.1/sops-v3.8.1.linux.amd64
-	sudo mv sops-v3.8.1.linux.amd64 /usr/local/bin/sops
-	chmod +x /usr/local/bin/sops
-fi
-
 # install gcm
 if [ ! -f /usr/local/bin/git-credential-manager ]; then
 	git config --global credential.credentialStore cache
