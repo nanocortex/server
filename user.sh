@@ -19,6 +19,21 @@ for package in $pkgs; do
 	fi
 done
 
+# doctl registry
+if [ ! -f /snap/bin/doctl ]; then
+	sudo snap install doctl
+	sudo snap connect doctl:dot-docker
+	doctl auth init
+	doctl registry login --never-expire
+fi
+
+# install sops
+if [ ! -f /usr/local/bin/sops ]; then
+	curl -LO https://github.com/getsops/sops/releases/download/v3.8.1/sops-v3.8.1.linux.amd64
+	sudo mv sops-v3.8.1.linux.amd64 /usr/local/bin/sops
+	chmod +x /usr/local/bin/sops
+fi
+
 # install gcm
 if [ ! -f /usr/local/bin/git-credential-manager ]; then
 	git config --global credential.credentialStore cache
@@ -62,11 +77,13 @@ fd_exists ~/.local/share/shell/p10k || git clone --depth=1 https://github.com/ro
 #
 
 # Copy ssh keys
-#mkdir -p /home/$usr/.ssh
-sudo cp -R /root/.ssh /home/$usr/
-sudo chown $usr:users -R /home/$usr/.ssh
-chmod 700 /home/$usr/.ssh
-chmod 600 /home/$usr/.ssh/authorized_keys
+if ! fd_exists "/home/$usr/.ssh"; then
+	mkdir -p /home/$usr/.ssh
+	sudo cp -R /root/.ssh /home/$usr/
+	sudo chown $usr:users -R /home/$usr/.ssh
+	chmod 700 /home/$usr/.ssh
+	chmod 600 /home/$usr/.ssh/authorized_keys
+fi
 
 # Harden SSHD config
 set_config "PermitEmptyPasswords" "no"
@@ -93,5 +110,7 @@ if ! dpkg -l | grep -q "docker"; then
 else
 	echo "Docker already installed"
 fi
+
+sudo systemctl daemon-reload
 
 echo "Script finished!"
